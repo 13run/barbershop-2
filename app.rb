@@ -9,3 +9,7 @@ require 'sinatra/reloader'
 get '/' do
 	erb 'hello'
 end
+
+get '/visits' do
+	erb "Hello World"
+end
