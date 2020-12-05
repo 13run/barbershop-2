@@ -12,7 +12,7 @@
     <tbody>
         <% @visiters.each do |visiter| %>
             <tr>
-            <td><%= visiter.name%></td>
+            <td><a href="/client/<%= visiter.id%>"><%= visiter.name%></a></td>
             <td><%= visiter.phone%></td>
             <td><%= visiter.barber%></td>
             <td><%= visiter.datestamp%></td>

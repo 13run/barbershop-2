@@ -72,8 +72,14 @@ get '/barber/:id' do
 	erb :barber
 end
 
-get '/show_clients' do
+get '/bookings' do
 	@visiters = Client.order(:datestamp).reverse_order
 
-	erb :show_clients
+	erb :bookings
+end
+
+get '/client/:id' do
+	@client = Client.find(params[:id])
+
+	erb :client
 end
