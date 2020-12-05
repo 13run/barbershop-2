@@ -5,7 +5,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/activerecord'
 
-set :database, { adapter: 'sqlite3', database: 'barbershop.db' }
+set :database,  { adapter: 'sqlite3', database: 'barbershop.db' }
 
 class Client < ActiveRecord::Base
 	validates :name, presence: true, length: { in: 3..20}
@@ -25,6 +25,7 @@ end
 
 before do
 	@barbers = Barber.all
+	@clnt = Client.new params[:client]
 end
 
 
@@ -38,7 +39,7 @@ end
 
 post '/visit' do
 
-	@clnt = Client.new params[:client]
+	
 	@clnt.save
 
 	if @clnt.save
