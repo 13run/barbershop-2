@@ -1,0 +1,22 @@
+<h2>Clients: </h2>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>phone</th>
+            <th>barber</th>
+            <th>date time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @visiters.each do |visiter| %>
+            <tr>
+            <td><%= visiter.name%></td>
+            <td><%= visiter.phone%></td>
+            <td><%= visiter.barber%></td>
+            <td><%= visiter.datestamp%></td>
+            </tr>
+        <%end%>
+    </tbody>
+</table>

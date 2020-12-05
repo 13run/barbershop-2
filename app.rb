@@ -8,7 +8,7 @@ require 'sinatra/activerecord'
 set :database, { adapter: 'sqlite3', database: 'barbershop.db' }
 
 class Client < ActiveRecord::Base
-	validates :name, presence: true
+	validates :name, presence: true, length: { in: 3..20}
 	validates :phone, presence: true
 	validates :datestamp, presence: true
 	validates :color, presence: true
@@ -18,6 +18,8 @@ class Barber < ActiveRecord::Base
 end
 
 class Contact < ActiveRecord::Base
+	validates :user_name, presence: true
+	validates :user_message, presence: true
 end
 
 
@@ -35,20 +37,16 @@ get '/visit' do
 end
 
 post '/visit' do
-	# @barber = params[:barber]
-	# @user = params[:user_name]
-	# @phone = params[:user_phone]
-	# @date = params[:date_time]
-	# @color = params[:colorpicker]
 
-	# Client.create 	name: @user, phone: @phone,
-	# 				datestamp: @date, barber: @barber,
-	# 				color: @color
+	@clnt = Client.new params[:client]
+	@clnt.save
 
-	clnt = Client.new params[:client]
-	clnt.save
-
-	erb 'You in!'
+	if @clnt.save
+		erb 'You in!'
+	else
+		@error= @clnt.errors.full_messages.first
+		erb :visit
+	end
 end
 
 get '/contact' do
@@ -56,10 +54,26 @@ get '/contact' do
 end
 
 post '/contact' do
-	@user_name = params[:user_name]
-	@user_message = params[:user_message]
 
-	Contact.create user_name: @user_name, user_message: @user_message
+	cntct = Contact.new params[:contact]
+	cntct.save
 
-	erb :contact 
+	if cntct.save
+		erb :contact 
+	else
+		@error = cntct.errors.full_messages.first
+		erb :contact
+	end
+end
+
+get '/barber/:id' do
+	@barber = Barber.find(params[:id])
+
+	erb :barber
+end
+
+get '/show_clients' do
+	@visiters = Client.order(:datestamp).reverse_order
+
+	erb :show_clients
 end

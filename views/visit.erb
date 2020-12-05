@@ -15,24 +15,24 @@
 <form action="/visit" method="POST">
   <div class="form-group">
     <label>Ваше имя</label>
-    <input type="text" class="form-control" name="client[name]" placeholder="введите Ваше имя" >
+    <input type="text" class="form-control" name="client[name]" placeholder="введите Ваше имя" value="<%= @clnt.name%>">
   </div>
   
   <div class="form-group">
     <label>Ваш телефон</label>
-    <input type="text" class="form-control" name="client[phone]" placeholder="telephone" >
+    <input type="text" class="form-control" name="client[phone]" placeholder="telephone" value="<%= @clnt.phone%>">
   </div>
 
   <div class="form-group">
     <label>Когда вас ждать</label>
-    <input id="datetimepicker" type="text" name="client[datestamp]" class="form-control"  placeholder="дд.мм час:мин" >
+    <input id="datetimepicker" type="text" name="client[datestamp]" class="form-control"  placeholder="дд.мм час:мин" value="<%= @clnt.datestamp%>">
   </div>
 
   <div class="form-group">
 		<select name="client[barber]">
 
 		  <% @barbers.each do |barber|%>
-      <option>
+      <option <%= (@clnt.barber == barber.name) ? 'selected' : '' %>>
           <%= barber.name %>          
       </option>
 
