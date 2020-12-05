@@ -32,18 +32,20 @@ get '/visit' do
 end
 
 post '/visit' do
-	@barber = params[:barber]
-	@user = params[:user_name]
-	@phone = params[:user_phone]
-	@date = params[:date_time]
-	@color = params[:colorpicker]
+	# @barber = params[:barber]
+	# @user = params[:user_name]
+	# @phone = params[:user_phone]
+	# @date = params[:date_time]
+	# @color = params[:colorpicker]
 
-	Client.create 	name: @user, phone: @phone,
-					datestamp: @date, barber: @barber,
-					color: @color
+	# Client.create 	name: @user, phone: @phone,
+	# 				datestamp: @date, barber: @barber,
+	# 				color: @color
 
+	clnt = Client.new params[:client]
+	clnt.save
 
-	erb :visit
+	erb 'You in!'
 end
 
 get '/contact' do
