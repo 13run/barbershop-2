@@ -14,12 +14,27 @@ end
 class Barber < ActiveRecord::Base
 end
 
+before do
+	@barbers = Barber.all
+end
+
 
 get '/' do
-	@barbers = Barber.all
 	erb :index
 end
 
-get '/visits' do
-	erb "Hello World"
+get '/visit' do
+	erb :visit
+end
+
+post '/visit' do
+	@barber = params[:barber]
+	@user = params[:user_name]
+	@phone = params[:user_phone]
+	@date = params[:date_time]
+	@color = params[:colorpicker]
+
+	Client.create 	name: @user, phone: @phone,
+					datestamp: @date, barber: @barber,
+					color: @color
 end
